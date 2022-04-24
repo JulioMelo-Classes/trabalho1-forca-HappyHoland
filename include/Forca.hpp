@@ -1,13 +1,26 @@
 #include <iostream>
 #include <vector>
- 
+
+struct score {
+    std::string dificuldade; //<! dificuldade da partida armazenada nos scores
+
+    std::string nome; //<! nome do jogador
+
+    std::vector<std::string> palavras; //<! palavras acertadas pelo jogador na partida
+
+    int pontos; //<! pontos feitos pelo jogador na partida
+};
+
+/**
+ * @brief Objeto usado para iniciar e rodar um jogo de Forca.
+ */
 class Forca {
     public:
         enum Dificuldade{
             FACIL, MEDIO, DIFICIL
         };
     private:
-        //TODO: armazenar os scores?
+        std::vector<score*> m_scores; //<! scores de partidas passadas
        
         std::vector< std::pair<std::string, int> > m_palavras; //<! palavras e sua ocorrência no Corpus
         
@@ -23,6 +36,14 @@ class Forca {
         std::string m_palavra_jogada; //<! palavra sendo jogada “atualmente” no formato “_ _ _ ... _ “
         
         int m_tentativas_restantes; //TODO: armazenar tentativas restantes
+
+        int m_media_freq; //<! média da frequência das palavras no Corpus
+
+        std::vector< std::string > m_palavras_jogadas; //<! contém as palavras já jogadas nessa partida
+
+        score * m_score_atual; 
+
+        int maiores[3];
    
     public:
         /**
@@ -108,9 +129,9 @@ class Forca {
         bool rodada_terminada();
  
         /**
-         * Reseta o valor de tentativas restantes para 5 e do atributo m_letras_palpitadas para vazio
+         * Reseta o valor de tentativas restantes para 6 e do atributo m_letras_palpitadas para vazio
          * Este método é útil no caso do jogador escolher continuar o jogo, ou no início
-         * de cada rodada, resetando o valor de tentativas restantes para 5 e do atributo
+         * de cada rodada, resetando o valor de tentativas restantes para 6 e do atributo
          * m_letras_palpitadas como sendo um vetor vazio
          */
         void reset_rodada();
@@ -121,4 +142,52 @@ class Forca {
          */
         int get_tentativas_restantes();
 
+        /**
+        * @brief Imprime a tela de início do jogo com as opções para o usuário.
+        * Retorna a opção escolhida pelo usuário.
+        * @return int  
+        */
+        int tela_de_inicio();
+
+        /**
+         * @brief Imprime a tela de escolha de dificuldade com as opções para o usuário.
+         * Recebe a escolha do usuário e retorna a dificuldade correspondente.
+         * @return Dificuldade: FACIL, se o usuário escolher 1, MÉDIO, se o usuário escolher 2, ou DIFÍCIL, se o usuário escolher 3. 
+         */
+        Forca::Dificuldade select_dif();
+
+        /**
+         * @brief Imprime a interface principal do jogo
+         * Mostra as letras palpitadas, as letras acertadas e as tentativas restantes
+         */
+        void interface();
+
+        /**
+         * @brief Imprime a interface de continuar/parar e recebe a escolha do usuário
+         * @return bool, true se o usuário decidir parar, false se o usuário decidir continuar
+         */
+        bool parar();
+
+        /**
+         * @brief imprime tela de game over com a palavra atual
+         */
+        void game_over();
+
+        /**
+         * @brief Pede o nome do usuário e salva as informações dele no arquivo e no container
+         * 
+         */
+        void save_score();
+
+        /**
+         * @brief Imprime os scores de partidas passadas
+         * 
+         */
+        void print_scores();
+
+        /**
+         * @brief desaloca os ponteiros de scores armazenados no vetor m_scores
+         * 
+         */
+        void delete_m_scores();
 };
