@@ -1,0 +1,6 @@
+Facil; Felipe; SALTO; 5
+Medio; Gabi; ASSALTO, SEQUESTRO; 10
+Facil; Felipe; SAPATO, HABITANTE; 17
+Facil; Felipe, SINISTRO; 8
+Dificil; Lucas; NAMORO, SAUDADES; 23
+Medio; Évora; AMIZADE, SEMPRE; 10

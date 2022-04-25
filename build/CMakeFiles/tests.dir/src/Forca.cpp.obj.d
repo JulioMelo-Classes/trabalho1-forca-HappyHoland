@@ -1,4 +1,4 @@
-CMakeFiles/program.dir/src/Forca.cpp.obj: \
+CMakeFiles/tests.dir/src/Forca.cpp.obj: \
  C:\Users\lucas\Documents\Tecnologia\ e\ Informacao\2022.1\LP1\trabalho1-forca-HappyHoland\src\Forca.cpp \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\iostream \
  c:\mingw\lib\gcc\mingw32\6.3.0\include\c++\mingw32\bits\c++config.h \

@@ -1,13 +1,13 @@
 #include <iostream>
 #include "Forca.hpp"
 #include <ctime>
+#include <locale.h>
 
 using namespace std;
 
-
-
 int main(int argc, char *argv[]){
     srand(time(0));
+    setlocale(LC_ALL, "Portuguese");
 
     Forca forca(argv[1], argv[2]);
     auto valid = forca.eh_valido();
@@ -47,6 +47,8 @@ int main(int argc, char *argv[]){
 
                     palpite.erase(1);
 
+                    palpite[0] = toupper(palpite[0]);
+
                     pos = palpite.find_first_not_of(alfabeto);
 
                     while (pos != string::npos) {
@@ -64,11 +66,11 @@ int main(int argc, char *argv[]){
 
 
                     if (result.second == false) {
-                        cout << "Você ja tentou com a letra " << palpite << "." << endl;
+                        cout << "Voce ja tentou com a letra " << palpite << "." << endl;
                     } else if (result.first == false) {
-                        cout << "Não achei a letra " << palpite << "na palavra." << endl;
+                        cout << "Nao achei a letra " << palpite << " na palavra." << endl;
                     } else {
-                        cout << "Muito bem! A palavra contém a letra " << palpite << "!" << endl;
+                        cout << "Muito bem! A palavra contem a letra " << palpite << "!" << endl;
                     }
 
                     forca.interface();
@@ -88,6 +90,7 @@ int main(int argc, char *argv[]){
                     break;
                 }
             }
+            //Recebe o nome do jogador e salva o score no arquivo
             forca.save_score();
         }
         else if(/*mostrar score*/ escolha == 2)

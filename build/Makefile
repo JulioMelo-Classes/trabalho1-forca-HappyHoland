@@ -128,12 +128,52 @@ program/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\program.dir\build.make CMakeFiles/program.dir/build
 .PHONY : program/fast
 
+#=============================================================================
+# Target rules for targets named tests
+
+# Build rule for target.
+tests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 tests
+.PHONY : tests
+
+# fast build rule for target.
+tests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/build
+.PHONY : tests/fast
+
+#=============================================================================
+# Target rules for targets named verify
+
+# Build rule for target.
+verify: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 verify
+.PHONY : verify
+
+# fast build rule for target.
+verify/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\verify.dir\build.make CMakeFiles/verify.dir/build
+.PHONY : verify/fast
+
+#=============================================================================
+# Target rules for targets named run_tests
+
+# Build rule for target.
+run_tests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 run_tests
+.PHONY : run_tests
+
+# fast build rule for target.
+run_tests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\run_tests.dir\build.make CMakeFiles/run_tests.dir/build
+.PHONY : run_tests/fast
+
 src/Forca.obj: src/Forca.cpp.obj
 .PHONY : src/Forca.obj
 
 # target to build an object file
 src/Forca.cpp.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\program.dir\build.make CMakeFiles/program.dir/src/Forca.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/src/Forca.cpp.obj
 .PHONY : src/Forca.cpp.obj
 
 src/Forca.i: src/Forca.cpp.i
@@ -142,6 +182,7 @@ src/Forca.i: src/Forca.cpp.i
 # target to preprocess a source file
 src/Forca.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\program.dir\build.make CMakeFiles/program.dir/src/Forca.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/src/Forca.cpp.i
 .PHONY : src/Forca.cpp.i
 
 src/Forca.s: src/Forca.cpp.s
@@ -150,6 +191,7 @@ src/Forca.s: src/Forca.cpp.s
 # target to generate assembly for a file
 src/Forca.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\program.dir\build.make CMakeFiles/program.dir/src/Forca.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/src/Forca.cpp.s
 .PHONY : src/Forca.cpp.s
 
 src/main.obj: src/main.cpp.obj
@@ -176,6 +218,54 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\program.dir\build.make CMakeFiles/program.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+test_manager/src/test_manager.obj: test_manager/src/test_manager.cpp.obj
+.PHONY : test_manager/src/test_manager.obj
+
+# target to build an object file
+test_manager/src/test_manager.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/test_manager/src/test_manager.cpp.obj
+.PHONY : test_manager/src/test_manager.cpp.obj
+
+test_manager/src/test_manager.i: test_manager/src/test_manager.cpp.i
+.PHONY : test_manager/src/test_manager.i
+
+# target to preprocess a source file
+test_manager/src/test_manager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/test_manager/src/test_manager.cpp.i
+.PHONY : test_manager/src/test_manager.cpp.i
+
+test_manager/src/test_manager.s: test_manager/src/test_manager.cpp.s
+.PHONY : test_manager/src/test_manager.s
+
+# target to generate assembly for a file
+test_manager/src/test_manager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/test_manager/src/test_manager.cpp.s
+.PHONY : test_manager/src/test_manager.cpp.s
+
+tests/main.obj: tests/main.cpp.obj
+.PHONY : tests/main.obj
+
+# target to build an object file
+tests/main.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/tests/main.cpp.obj
+.PHONY : tests/main.cpp.obj
+
+tests/main.i: tests/main.cpp.i
+.PHONY : tests/main.i
+
+# target to preprocess a source file
+tests/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/tests/main.cpp.i
+.PHONY : tests/main.cpp.i
+
+tests/main.s: tests/main.cpp.s
+.PHONY : tests/main.s
+
+# target to generate assembly for a file
+tests/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\tests.dir\build.make CMakeFiles/tests.dir/tests/main.cpp.s
+.PHONY : tests/main.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -184,13 +274,22 @@ help:
 	@echo ... depend
 	@echo ... edit_cache
 	@echo ... rebuild_cache
+	@echo ... run_tests
+	@echo ... verify
 	@echo ... program
+	@echo ... tests
 	@echo ... src/Forca.obj
 	@echo ... src/Forca.i
 	@echo ... src/Forca.s
 	@echo ... src/main.obj
 	@echo ... src/main.i
 	@echo ... src/main.s
+	@echo ... test_manager/src/test_manager.obj
+	@echo ... test_manager/src/test_manager.i
+	@echo ... test_manager/src/test_manager.s
+	@echo ... tests/main.obj
+	@echo ... tests/main.i
+	@echo ... tests/main.s
 .PHONY : help
 
 

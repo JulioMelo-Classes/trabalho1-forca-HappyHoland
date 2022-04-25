@@ -1,0 +1,4 @@
+Facil; Felipe; SALTO; 5
+Medio; Gabi; ASSALTO, SEQUESTRO; 10
+Facil; Felipe; SAPATO; HABITANTE; 25
+Facil; Felipe; CACHORRO; 9

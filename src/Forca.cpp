@@ -52,7 +52,7 @@ std::pair<bool, std::string> Forca::eh_valido(){
             istringstream sstream(line);
             vector<string> words;
             string word;
-            string freq;
+            string freq = "00";
             size_t wpos, fpos;
 
             while (getline(sstream, word, ' ')) {
@@ -65,7 +65,7 @@ std::pair<bool, std::string> Forca::eh_valido(){
                 } else if (i < words.size() - 1) {
                     word = word + " " + words[i];
                 } else {
-                    freq = words[words.size()-1];
+                    freq = words[i];
                 }
             }
 
@@ -76,7 +76,7 @@ std::pair<bool, std::string> Forca::eh_valido(){
                 
                 return make_pair(false, "line " + to_string(linecont_p) + " word " + word);
 
-            } else if (fpos != string::npos){
+            } else if (fpos != string::npos || freq[0] == '0' ){
                 
                 return make_pair(false, "line " + to_string(linecont_p) + " word " + word);
 
@@ -94,7 +94,7 @@ std::pair<bool, std::string> Forca::eh_valido(){
 
     fstream file_scores;
     string path_s = "../data/" + m_arquivo_scores;
-    int linecont_s;
+    int linecont_s = 1;
 
     file_scores.open(path_s);
 
@@ -109,17 +109,21 @@ std::pair<bool, std::string> Forca::eh_valido(){
             istringstream sstream(line);
             string word;
             vector<string> words;
+            size_t ppos;
 
             while (getline(sstream, word, ';')) {
                 
                 words.push_back(word);
             }
 
+            words[words.size()-1].erase(words[words.size()-1].begin());
+            ppos = words[words.size()-1].find_first_not_of("-0123456789");
+
             if (words.size() != 4) {
 
                 return make_pair(false, "Line: " + to_string(linecont_s));
 
-            } else if (words[0] == "" || words[1] == "" || words[3] == "") {
+            } else if (words[0] == "" || words[1] == "" || words[3] == "" || ppos != string::npos) {
 
                 return make_pair(false, "Line: " + to_string(linecont_s));
             }
@@ -194,13 +198,16 @@ void Forca::carregar_arquivos(){
     string path_s = "../data/" + m_arquivo_scores;
     string line_s, palavras;
     unsigned int maior_nome = 7, maior_palavra = 8, maior_num = 6;
+    score * aux;
 
     //Abrindo o arquivo de scores
     file_scores.open(path_s);
 
     while (getline(file_scores, line_s)) {
+
+        cout << line_s << endl;
         
-        score * aux = new score;
+        aux = new score;
         istringstream sstream2(line_s);
         string score_str;
         vector <string> score;
@@ -341,6 +348,8 @@ std::string Forca::proxima_palavra(){
     unsigned int n_letras_rev;
     string letras_possiveis;
 
+    m_palavra_jogada.clear();
+
     if (m_palavras_do_jogo.size() == 0) {
         set_dificuldade(m_dificuldade);
     }
@@ -375,7 +384,7 @@ std::string Forca::proxima_palavra(){
         n_letras_rev = 1;
         letras_possiveis = "AEIOUY";
 
-    } else {
+    } else if (m_dificuldade == DIFICIL) {
 
         n_letras_rev = 0;
         letras_possiveis = "";
@@ -444,6 +453,10 @@ std::pair<bool, bool> Forca::palpite(std::string palpite) {
         if (m_letras_palpitadas[i] == palpite[0]) {
             novo = false;
         }
+    }
+
+    if (novo) {
+        m_letras_palpitadas.push_back(palpite[0]);
     }
 
     for (unsigned int j = 0; j < m_palavra_atual.size(); j++) {
@@ -521,14 +534,14 @@ int Forca::tela_de_inicio () {
     int opcao;
     
     cout << "Bem vindo ao Jogo da Forca!" << endl << endl;
-    cout << "Escolha uma das opções:" << endl << endl;
+    cout << "Escolha uma das alternativas:" << endl << endl;
     cout << "1 - Iniciar Jogo" << endl;
     cout << "2 - Ver scores anteriores" << endl;
     cout << "3 - Sair do Jogo" << endl;
 
     cin >> opcao;
 
-    cout << "Sua opção: " << opcao << endl;
+    cout << "Sua escolha: " << opcao << endl;
 
     return opcao;
 }
@@ -544,7 +557,7 @@ Forca::Dificuldade Forca::select_dif() {
     int escolha = 0;
     
     cout << "Por favor, selecione a dificuldade:" << endl;
-    cout << "1 - Fácil" << endl << "2 - Médio" << endl << "3 - Difícil" << endl;
+    cout << "1 - Facil" << endl << "2 - Medio" << endl << "3 - Dificil" << endl;
     cin >> escolha;
 
     while (escolha < 1 || escolha > 3) {
@@ -555,24 +568,24 @@ Forca::Dificuldade Forca::select_dif() {
     switch (escolha) {
         case 1:
             d = Forca::Dificuldade::FACIL;
-            diff = "Fácil";
+            diff = "Facil";
             break;
 
         case 2:
             d = Forca::Dificuldade::MEDIO;
-            diff = "Médio";
+            diff = "Medio";
             break;
 
         case 3:
             d = Forca::Dificuldade::DIFICIL;
-            diff = "Difícil";
+            diff = "Dificil";
             break;
     }
 
     m_score_atual = new score;
     m_score_atual->pontos = 0;
     m_score_atual->dificuldade = diff;
-    cout << "Iniciando o jogo no nível " << diff << ", será que você conhece essa palavra?" << endl;
+    cout << "Iniciando o jogo no nivel " << diff << ", sera que voce conhece essa palavra?" << endl;
 
     return d;
 }
@@ -582,9 +595,7 @@ Forca::Dificuldade Forca::select_dif() {
  * Mostra as letras palpitadas, as letras acertadas e as tentativas restantes
  */
 void Forca::interface() {
-    string palpite;
     int erros = 6 - m_tentativas_restantes;
-    string alfabeto;
 
     if (erros >= 1) {
         cout << " o" << endl;
@@ -593,7 +604,7 @@ void Forca::interface() {
             cout << " |" << endl << endl << endl;
         } else if ( erros == 3) {
             cout << "/|" << endl << endl << endl;
-        } else {
+        } else if (erros >= 4){
             cout << "/|\\" << endl;
 
             if (erros >= 5) {
@@ -604,7 +615,12 @@ void Forca::interface() {
                 } else {
                     cout << endl << endl;
                 }
+            } else {
+                cout << endl << endl;
             }
+
+        } else {
+            cout << endl << endl << endl;
         }
 
     } else {
@@ -653,24 +669,25 @@ void Forca::game_over() {
  */
 void Forca::save_score() {
     ofstream file_score;
-    string path = "data/" + m_arquivo_scores;
+    string path = "../data/" + m_arquivo_scores;
 
     cout << "Informe o seu nome: ";
 
     getline(cin, m_score_atual->nome, '\n');
+    getline(cin, m_score_atual->nome, '\n');
 
     m_scores.push_back(m_score_atual);
 
-    file_score.open(path);
+    file_score.open(path, ios::app);
 
     if (file_score.is_open()){
         file_score << m_score_atual->dificuldade <<"; " << m_score_atual->nome << "; ";
 
         for (unsigned int i = 0; i < m_score_atual->palavras.size(); i++) {
-            file_score << m_score_atual->palavras[i] << ",";
+            file_score << m_score_atual->palavras[i];
 
             if (i < m_score_atual->palavras.size() - 1) {
-                file_score << " ";
+                file_score << ", ";
             } else {
                 file_score << "; ";
             }
@@ -718,6 +735,8 @@ void Forca::print_scores() {
 
         cout << string(14 + maiores[0] + maiores[1] + maiores[2], '-');
     }
+
+    cout << endl << endl;
 
 }
 
