@@ -204,8 +204,6 @@ void Forca::carregar_arquivos(){
     file_scores.open(path_s);
 
     while (getline(file_scores, line_s)) {
-
-        cout << line_s << endl;
         
         aux = new score;
         istringstream sstream2(line_s);
@@ -225,7 +223,6 @@ void Forca::carregar_arquivos(){
             maior_nome = aux->nome.size();
         }
         
-        score[2].erase(score[2].begin());
         palavras = score[2];
 
         istringstream sstream3(palavras);
@@ -399,13 +396,14 @@ std::string Forca::proxima_palavra(){
             if (letras_possiveis[l] == m_palavra_atual[m]) {
                         
                 m_palavra_jogada[m] = letras_possiveis[l];
+                m_letras_palpitadas.push_back(letras_possiveis[l]); 
                 in = true;
+                break;
             }
         }
 
         if (in) {
             k++;
-            letras_possiveis.erase(letras_possiveis.begin() + l);
         }
     }
 
@@ -476,6 +474,7 @@ std::pair<bool, bool> Forca::palpite(std::string palpite) {
 
     if (novo && !pertence) {
         m_tentativas_restantes--;
+        m_score_atual->pontos--;
     }
 
     return make_pair(pertence, novo);
@@ -539,9 +538,11 @@ int Forca::tela_de_inicio () {
     cout << "2 - Ver scores anteriores" << endl;
     cout << "3 - Sair do Jogo" << endl;
 
+    cout << "Sua escolha: ";
+    
     cin >> opcao;
 
-    cout << "Sua escolha: " << opcao << endl;
+    cout << endl;
 
     return opcao;
 }
@@ -558,10 +559,12 @@ Forca::Dificuldade Forca::select_dif() {
     
     cout << "Por favor, selecione a dificuldade:" << endl;
     cout << "1 - Facil" << endl << "2 - Medio" << endl << "3 - Dificil" << endl;
+    cout << "Sua escolha: ";
     cin >> escolha;
 
     while (escolha < 1 || escolha > 3) {
-        cout << "Escolha inválida, por favor escolha 1, 2 ou 3" << endl;   
+        cout << "Escolha inválida, por favor escolha 1, 2 ou 3" << endl; 
+        cout << "Sua escolha: ";  
         cin >> escolha;
     }
 
@@ -642,7 +645,10 @@ bool Forca::parar() {
     cout << "1 - Parar" << endl;
     cout << "2 - Continuar" << endl;
 
+    cout << "Sua escolha: ";
     cin >> escolha;
+
+    cout << endl;
 
     switch(escolha) {
         case 1:
@@ -652,6 +658,7 @@ bool Forca::parar() {
             return false;
             break;
     }
+
 }
 
 /**
@@ -660,7 +667,7 @@ bool Forca::parar() {
 void Forca::game_over() {
     cout << "GAME OVER" << endl << endl;
 
-    cout << "Palavra: " << m_palavra_atual << endl;
+    cout << "Palavra: " << m_palavra_atual << endl << endl;
 }
 
 /**
@@ -670,11 +677,23 @@ void Forca::game_over() {
 void Forca::save_score() {
     ofstream file_score;
     string path = "../data/" + m_arquivo_scores;
+    size_t pos;
 
     cout << "Informe o seu nome: ";
 
     getline(cin, m_score_atual->nome, '\n');
     getline(cin, m_score_atual->nome, '\n');
+
+    pos = m_score_atual->nome.find_first_of(';');
+
+    while (pos != string::npos) {
+        cout << "Nome inválido. Nomes não podem conter ';'." << endl;
+        cout << "Informe o seu nome: ";
+
+        getline(cin, m_score_atual->nome);
+
+        pos = m_score_atual->nome.find_first_of(';');
+    }
 
     m_scores.push_back(m_score_atual);
 
@@ -683,13 +702,17 @@ void Forca::save_score() {
     if (file_score.is_open()){
         file_score << m_score_atual->dificuldade <<"; " << m_score_atual->nome << "; ";
 
-        for (unsigned int i = 0; i < m_score_atual->palavras.size(); i++) {
-            file_score << m_score_atual->palavras[i];
+        if (m_score_atual->palavras.size() == 0) {
+            file_score << "; ";
+        } else {
+            for (unsigned int i = 0; i < m_score_atual->palavras.size(); i++) {
+                file_score << m_score_atual->palavras[i];
 
-            if (i < m_score_atual->palavras.size() - 1) {
-                file_score << ", ";
-            } else {
-                file_score << "; ";
+                if (i < m_score_atual->palavras.size() - 1) {
+                    file_score << ", ";
+                } else {
+                    file_score << "; ";
+                }
             }
         }
 
@@ -698,7 +721,7 @@ void Forca::save_score() {
 
     file_score.close();
 
-    delete(m_score_atual);
+    cout << endl << endl;
 }
 
 /**
@@ -733,7 +756,7 @@ void Forca::print_scores() {
             cout << iw << left << "" << endl;
         }
 
-        cout << string(14 + maiores[0] + maiores[1] + maiores[2], '-');
+        cout << string(14 + maiores[0] + maiores[1] + maiores[2] + 10, '-') << endl;
     }
 
     cout << endl << endl;

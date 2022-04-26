@@ -1,6 +1,35 @@
 # Trabalho-1
 Repositório contendo as especificações do Trabalho 1 da disciplina de LP1
 
-# Documento de Especificação
+# Compilação do Projeto:
+No terminal, execute os comandos:
+```
+cd build
+cmake ..
+cmake --build .
+```
+# Execução do Programa
+Execute 'forca.exe' com os argumentos 'palavras.txt' e 'scores.txt':
 
-Leia o documento de especificação contido em [Especificação do Trabalho 1](https://docs.google.com/document/d/1aa51VNLQ_jpZaEuGkMz2KE8feAkE48-TENZ9eqn48nk/edit?usp=sharing). Preencha o autor.md com as informações relativas ao grupo/autor.
+```
+./forca palavras.txt scores.txt
+```
+
+# Testes de validação de arquivos:
+No terminal, execute os comando:
+
+(se não tiver criado os arquivos de build na pasta build ainda):
+```
+cd build
+cmake ..
+cmake --build . --target run_tests
+```
+(se já tiver criado os arquivos de build):
+```
+cmake --build . --target run_tests
+```
+
+# Limitações:
+1. Este programa considera que arquivos ilegíveis contam como não existentes. 
+1. Este programa não permite carregar arquivos não validados
+3. 

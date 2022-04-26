@@ -1,1 +1,8 @@
 Facil; Felipe; SALTO; 5
+Facil; Felipe; COBRANDO; 8
+Facil; Felipe; RESPONSABILIDADES, ENSINAR, PSICOSSOCIAL; 34
+Facil; Felipe; PATENTES; 9
+Facil; Felipe; ; 4
+Medio; Luke; MINEIRA; 8
+Medio; Felipe; SEPARADA; 9
+Dificil; Luke; OCIOSA; 2
