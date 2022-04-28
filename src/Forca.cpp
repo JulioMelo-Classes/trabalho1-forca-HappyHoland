@@ -391,7 +391,7 @@ std::string Forca::proxima_palavra(){
         letras_possiveis = "";
     }
 
-    for (unsigned int k = 0, l = 0; k < n_letras_rev;) {
+    for (unsigned int k = 0, l = 0; k < n_letras_rev && letras_possiveis.size() != 0;) {
         l = rand()%letras_possiveis.size();
 
         bool in = false;
