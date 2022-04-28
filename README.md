@@ -1,6 +1,26 @@
 # Trabalho-1
 Repositório contendo as especificações do Trabalho 1 da disciplina de LP1
 
+# Avaliação e Feeback
+
+- Implementação do carregamento dos arquivos | 9 / 10 pontos
+    - blz, boa ideia usar o getline para fazer o split da palavra. O unico ponto aqui é que vc fixou a localização dos arquivos de entrada
+
+- Implementação de parte da validação | 9 / 10 pontos
+    - Aqui você fixou o path dos arquivos para '../data', a epecificação diz que vc deve abrir os arquivos recebidos por parâmetro!
+
+- Implementação de um main funcional com parte da UI | 5 / 5 pontos
+
+- Implementação de parte da lógica de sorteio de palavras | 8 / 10 pontos 
+    - Entendi a ideia de implementar um "embaralhamento" mas realmente não é uma forma ok de fazer, você poderia ao menos gerar aqueles vetores
+    automaticamente com rand ou usar shuffle!
+
+- Estrutura básica dos arquivos e processo de compilação definido | 5 / 5 pontos
+
+- Observações gerais
+    - Muito boa a ideia de testar com o test_manager, mas como vc faria para testar uma execução inteira do programa? ;D fica de desafio
+
+
 # Compilação do Projeto:
 No terminal, execute os comandos:
 ```
