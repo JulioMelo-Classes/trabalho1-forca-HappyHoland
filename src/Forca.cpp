@@ -225,6 +225,10 @@ void Forca::carregar_arquivos(){
         
         palavras = score[2];
 
+        if (palavras.size() == 1 && palavras[0] == ' ') {
+            palavras.clear();
+        }
+
         istringstream sstream3(palavras);
         string p;
 
@@ -600,34 +604,41 @@ Forca::Dificuldade Forca::select_dif() {
 void Forca::interface() {
     int erros = 6 - m_tentativas_restantes;
 
+    cout << "____" << endl;
+    cout << "|   |" << endl;
+    cout << "|  ";
+    
     if (erros >= 1) {
+        
         cout << " o" << endl;
+        cout << "| ";
 
         if (erros == 2) {
-            cout << " |" << endl << endl << endl;
+            cout << "  |" << endl << "| " << endl << "|___" << endl;
         } else if ( erros == 3) {
-            cout << "/|" << endl << endl << endl;
+            cout << " /|" << endl << "| " << endl << "|___" << endl;
         } else if (erros >= 4){
-            cout << "/|\\" << endl;
+            cout << " /|\\" << endl;
+            cout << "| ";
 
             if (erros >= 5) {
-                cout << "/ ";
+                cout << " / ";
 
                 if (erros == 6) {
-                    cout << "\\" << endl << endl;
+                    cout << "\\" << endl << "|___" << endl;
                 } else {
-                    cout << endl << endl;
+                    cout << endl << "|___" << endl;
                 }
             } else {
-                cout << endl << endl;
+                cout << endl << "|___" << endl;
             }
 
         } else {
-            cout << endl << endl << endl;
+            cout << endl << "| " << endl << "| " << endl << "|___" << endl;
         }
 
     } else {
-        cout << endl << endl << endl << endl;
+        cout << endl << "| " << endl << "| " << endl << "|___" << endl;
     }
 
     cout << m_palavra_jogada << endl;
@@ -742,7 +753,7 @@ void Forca::print_scores() {
     for (unsigned int i = 0; i < m_scores.size(); i++) {
         cout << dw << left << m_scores[i]->dificuldade << "| ";
         cout << nw << left << m_scores[i]->nome << "| ";
-        if (m_scores[i]->palavras[0].size() == 0) {
+        if (m_scores[i]->palavras.size() == 0) {
             cout << pw << left << "<nenhuma>" << "| ";
         } else {
             cout << pw << left << m_scores[i]->palavras[0] << "| ";
