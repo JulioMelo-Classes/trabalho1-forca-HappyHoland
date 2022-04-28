@@ -231,7 +231,11 @@ void Forca::carregar_arquivos(){
         while (getline(sstream3, p, ',')) {
             p.erase(p.begin());
             aux->palavras.push_back(p);
-        }   
+        }
+
+        if (aux->palavras.size() == 1 && aux->palavras[0][0] == ' ') {
+            aux->palavras[0].erase(aux->palavras[0].begin());
+        } 
 
         for (unsigned int k = 0; k < aux->palavras.size(); k++) {
             if (aux->palavras[k].size() > maior_palavra) {
