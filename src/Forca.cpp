@@ -396,14 +396,14 @@ std::string Forca::proxima_palavra(){
             if (letras_possiveis[l] == m_palavra_atual[m]) {
                         
                 m_palavra_jogada[m] = letras_possiveis[l];
-                m_letras_palpitadas.push_back(letras_possiveis[l]); 
+                k++;
                 in = true;
-                break;
             }
         }
 
         if (in) {
-            k++;
+            m_letras_palpitadas.push_back(letras_possiveis[l]);
+            letras_possiveis.erase(letras_possiveis.begin() + l); 
         }
     }
 
