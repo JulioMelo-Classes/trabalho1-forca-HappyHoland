@@ -233,10 +233,6 @@ void Forca::carregar_arquivos(){
             aux->palavras.push_back(p);
         }
 
-        if (aux->palavras.size() == 1 && aux->palavras[0][0] == ' ') {
-            aux->palavras[0].erase(aux->palavras[0].begin());
-        } 
-
         for (unsigned int k = 0; k < aux->palavras.size(); k++) {
             if (aux->palavras[k].size() > maior_palavra) {
                 maior_palavra = aux->palavras[k].size();
@@ -746,7 +742,7 @@ void Forca::print_scores() {
     for (unsigned int i = 0; i < m_scores.size(); i++) {
         cout << dw << left << m_scores[i]->dificuldade << "| ";
         cout << nw << left << m_scores[i]->nome << "| ";
-        if (m_scores[i]->palavras.size() == 0) {
+        if (m_scores[i]->palavras[0].size() == 0) {
             cout << pw << left << "<nenhuma>" << "| ";
         } else {
             cout << pw << left << m_scores[i]->palavras[0] << "| ";
