@@ -275,46 +275,39 @@ void Forca::carregar_arquivos(){
 void Forca::set_dificuldade(Forca::Dificuldade d){
     m_dificuldade = d;
     int index, i = 0, j = 0;
+    int n_words, low_freq_qtt;
+    float low_freq_prop;
     vector<string> aux;
 
     m_palavras_do_jogo.clear();
 
     if (d == FACIL) {
 
-        while (i < 10) {
-            index = rand()%m_palavras.size();
-
-            if (m_palavras[index].second > m_media_freq) {
-                m_palavras_do_jogo.push_back(m_palavras[index].first);
-                i++;
-            }
-        }
+        n_words = 10;
+        low_freq_prop = 0;
 
     } else if (d == MEDIO) {
-        while (i + j < 20) {
-            index = rand()%m_palavras.size();
-                    
-            if (m_palavras[index].second < m_media_freq && j < 7) {
-                m_palavras_do_jogo.push_back(m_palavras[index].first);
-                j++;
-            } else if (m_palavras[index].second >= m_media_freq && i < 13) {
-                m_palavras_do_jogo.push_back(m_palavras[index].first);
-                i++;
-            }
-        }
+        
+        n_words = 20;
+        low_freq_prop = 1/3;
 
     } else {
 
-        while (i + j < 30) {
-            index = rand()%m_palavras.size();
+        n_words = 30;
+        low_freq_prop = 3/4;
+    }
 
-            if (m_palavras[index].second < m_media_freq && j < 22) {
-                m_palavras_do_jogo.push_back(m_palavras[index].first);
-                j++;
-            } else if (m_palavras[index].second >= m_media_freq && i < 8) {
-                m_palavras_do_jogo.push_back(m_palavras[index].first);
-                i++;
-            }
+    low_freq_qtt = n_words*low_freq_prop;
+
+    while (i + j < n_words) {
+        index = rand()%m_palavras.size();
+
+        if (m_palavras[index].second < m_media_freq && j < low_freq_qtt) {
+            m_palavras_do_jogo.push_back(m_palavras[index].first);
+            j++;
+        } else if (m_palavras[index].second >= m_media_freq && i < n_words - low_freq_qtt) {
+            m_palavras_do_jogo.push_back(m_palavras[index].first);
+            i++;
         }
     }
 
