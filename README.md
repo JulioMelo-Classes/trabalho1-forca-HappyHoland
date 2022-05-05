@@ -35,3 +35,4 @@ cmake --build . --target run_tests
 1. Este programa considera que arquivos ilegíveis contam como não existentes. 
 1. Este programa não permite carregar arquivos não validados
 1. Interface limitada, através do terminal
+1. Não imprime caracteres especiais (como letras com acento)
