@@ -2,6 +2,7 @@
 #include <fstream>
 #include <vector>
 #include "Forca.hpp"
+#include "sort.hpp"
 #include <string>
 #include <sstream>
 #include <time.h>
@@ -280,19 +281,13 @@ void Forca::set_dificuldade(Forca::Dificuldade d){
 
     if (d == FACIL) {
 
-            while (i < 10) {
+        while (i < 10) {
             index = rand()%m_palavras.size();
 
             if (m_palavras[index].second > m_media_freq) {
-                aux.push_back(m_palavras[index].first);
+                m_palavras_do_jogo.push_back(m_palavras[index].first);
                 i++;
             }
-        }
-
-        int num_list_10[10] = {7, 6, 9, 3, 2, 0, 9, 1, 5, 4};
-
-        for (unsigned int k = 0; k < 10; k++) {
-            m_palavras_do_jogo.push_back(aux[num_list_10[k]]);
         }
 
     } else if (d == MEDIO) {
@@ -300,18 +295,12 @@ void Forca::set_dificuldade(Forca::Dificuldade d){
             index = rand()%m_palavras.size();
                     
             if (m_palavras[index].second < m_media_freq && j < 7) {
-                aux.push_back(m_palavras[index].first);
+                m_palavras_do_jogo.push_back(m_palavras[index].first);
                 j++;
             } else if (m_palavras[index].second >= m_media_freq && i < 13) {
-                aux.push_back(m_palavras[index].first);
+                m_palavras_do_jogo.push_back(m_palavras[index].first);
                 i++;
             }
-        }
-
-        int num_list_20[20] = {0, 13, 16, 3, 7, 6, 15, 14, 19, 8, 9, 12, 17, 11, 1, 2, 18, 10, 4, 5};
-
-        for (int k = 0; k < 20; k++) {
-            m_palavras_do_jogo.push_back(aux[num_list_20[k]]);
         }
 
     } else {
@@ -320,21 +309,16 @@ void Forca::set_dificuldade(Forca::Dificuldade d){
             index = rand()%m_palavras.size();
 
             if (m_palavras[index].second < m_media_freq && j < 22) {
-                aux.push_back(m_palavras[index].first);
+                m_palavras_do_jogo.push_back(m_palavras[index].first);
                 j++;
             } else if (m_palavras[index].second >= m_media_freq && i < 8) {
-                aux.push_back(m_palavras[index].first);
+                m_palavras_do_jogo.push_back(m_palavras[index].first);
                 i++;
             }
         }
-
-        int num_list_30[30] = {15, 29, 16, 21, 18, 10, 25, 12, 11, 1, 4, 6, 19, 5, 7, 0, 9, 3, 2,
-                            22, 20, 23, 24, 8, 27, 13, 17, 14, 28, 26};
-
-        for (unsigned int k = 0; k < 30; k++) {
-            m_palavras_do_jogo.push_back(aux[num_list_30[k]]);
-        }
     }
+
+    sort(m_palavras_do_jogo);
 }
 
 /**

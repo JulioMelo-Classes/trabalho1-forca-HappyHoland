@@ -20,12 +20,14 @@ include_directories( include )
 set( APP_NAME "forca" )
 add_executable( ${APP_NAME}
                 src/main.cpp
-                src/Forca.cpp )
+                src/Forca.cpp 
+                src/sort.cpp)
 
 set( TESTS "tests" )
 add_executable( ${TESTS}
                 tests/main.cpp
                 src/Forca.cpp
+                src/sort.cpp
                 test_manager/src/test_manager.cpp )
 target_include_directories( ${TESTS} PUBLIC test_manager/include)
 

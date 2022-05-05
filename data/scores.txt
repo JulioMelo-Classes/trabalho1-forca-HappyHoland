@@ -9,3 +9,5 @@ Dificil; Luke; OCIOSA; 2
 Facil; Eora; ALOJAMENTO; 9
 Facil; Teste McTeste; ; -2
 Facil; Teste McTeste; ; -2
+Facil; Genebra; FUTEBOL; 2
+Facil; Gengar; ; -1
