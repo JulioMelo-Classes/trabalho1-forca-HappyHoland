@@ -12,3 +12,4 @@ Facil; Teste McTeste; ; -2
 Facil; Genebra; FUTEBOL; 2
 Facil; Gengar; ; -1
 Facil; Giselle; PLATAFORMAS; 6
+Facil; Jordan; ; -4

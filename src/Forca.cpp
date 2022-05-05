@@ -277,7 +277,7 @@ void Forca::set_dificuldade(Forca::Dificuldade d){
     int index, i = 0, j = 0;
     int n_words, low_freq_qtt;
     float low_freq_prop;
-    vector<string> aux;
+    bool or_eq_m = true;
 
     m_palavras_do_jogo.clear();
 
@@ -285,6 +285,7 @@ void Forca::set_dificuldade(Forca::Dificuldade d){
 
         n_words = 10;
         low_freq_prop = 0;
+        or_eq_m = false;
 
     } else if (d == MEDIO) {
         
@@ -305,7 +306,7 @@ void Forca::set_dificuldade(Forca::Dificuldade d){
         if (m_palavras[index].second < m_media_freq && j < low_freq_qtt) {
             m_palavras_do_jogo.push_back(m_palavras[index].first);
             j++;
-        } else if (m_palavras[index].second >= m_media_freq && i < n_words - low_freq_qtt) {
+        } else if ((m_palavras[index].second > m_media_freq || (m_palavras[index].second = m_media_freq && or_eq_m)) && i < n_words - low_freq_qtt) {
             m_palavras_do_jogo.push_back(m_palavras[index].first);
             i++;
         }
