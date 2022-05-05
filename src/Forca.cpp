@@ -470,7 +470,7 @@ std::pair<bool, bool> Forca::palpite(std::string palpite) {
                 m_score_atual->pontos++;
 
                 if (m_palavra_jogada.find_first_of('_') == string::npos) {
-                    m_score_atual->pontos++;
+                    m_score_atual->pontos = m_score_atual->pontos + 2;
                 }
             }
         }
