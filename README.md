@@ -34,5 +34,4 @@ cmake --build . --target run_tests
 # Limitações:
 1. Este programa considera que arquivos ilegíveis contam como não existentes. 
 1. Este programa não permite carregar arquivos não validados
-3. O processo de embaralhamento do container m_palavras_do_jogo é o mesmo toda vez que o programa é executado.
-4. Interface limitada, através do terminal
+1. Interface limitada, através do terminal
