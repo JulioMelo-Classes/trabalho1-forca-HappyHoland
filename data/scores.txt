@@ -11,3 +11,5 @@ Facil; Teste McTeste; ; -2
 Facil; Teste McTeste; ; -2
 Facil; Genebra; FUTEBOL; 2
 Facil; Gengar; ; -1
+Facil; julio; LEVANTAR; 4
+Facil; j; ; -5
